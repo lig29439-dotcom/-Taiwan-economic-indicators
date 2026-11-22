@@ -50,6 +50,9 @@
     return `${num(v, d)} <small>${esc(unit)}</small>`;
   }
   const signed = (v, d = 1) => (v == null ? "–" : (v > 0 ? "+" : "") + num(v, d));
+  // 上漲紅、下跌綠（台股慣例）；搭配 +/− 號與 ▲▼，顏色不是唯一線索
+  const tone = (v) => (v == null || Math.abs(v) < 1e-9 ? "" : v > 0 ? "up" : "down");
+  const toned = (v, text) => (tone(v) ? `<span class="${tone(v)}">${text}</span>` : text);
 
   // 主要觀察值：年增率型指標取年增率，其餘取原始值
   const hv = (ind, row) => (ind.head === "yoy" ? row[2] : row[1]);
@@ -60,7 +63,7 @@
 
   function headText(ind, v, small = true) {
     if (v == null) return "–";
-    if (ind.head === "yoy") return signed(v) + "%";
+    if (ind.head === "yoy") return toned(v, signed(v) + "%");
     return small ? withUnit(v, ind.unit) : num(v) + (ind.unit === "%" ? "%" : " " + ind.unit);
   }
 
@@ -77,7 +80,7 @@
     const unit = isPctUnit(ind) ? "個百分點" : ind.unit;
     const arrow = Math.abs(d) < 1e-9 ? "持平" : d > 0 ? "▲" : "▼";
     if (arrow === "持平") return `較${label}持平`;
-    return `${arrow} ${num(Math.abs(d), isPctUnit(ind) ? 2 : digitsFor(d))} ${esc(unit)}（較${label}）`;
+    return toned(d, `${arrow} ${num(Math.abs(d), isPctUnit(ind) ? 2 : digitsFor(d))} ${esc(unit)}`) + `（較${label}）`;
   }
 
   function lightOf(score) {
@@ -178,7 +181,7 @@
     };
     let series;
     if (kind === "bar") {
-      const pos = css("--pos"), neg = css("--neg");
+      const pos = css("--rise"), neg = css("--fall");
       series = {
         type: "bar",
         barMaxWidth: compact ? 4 : 10,
@@ -267,6 +270,10 @@
       <div class="tile-meta"><span>${deltaText(ind, info.value, info.prevValue, "上季")}</span>${monthLine(info)}</div>
       ${pctBar(info.pct)}
       <div class="${spark ? "spark" : "mini"}" data-chart="${id}"></div>
+      <div class="tile-info">
+        <p><b>意義</b>${esc(ind.desc)}</p>
+        ${ind.ref ? `<p><b>參考</b>${esc(ind.ref)}</p>` : ""}
+      </div>
     </a>`;
   }
 
@@ -485,7 +492,7 @@
     const items = cp.items.map((id, i) => ({ id, name: D[id].name.replace(/^.*：/, "").replace(/生產$/, ""), v: sets[i].get(q) }))
       .sort((a, b) => a.v - b.v);
     const chart = mkChart(el);
-    const pos = css("--pos"), neg = css("--neg");
+    const pos = css("--rise"), neg = css("--fall");
     chart.setOption({
       animation: false,
       textStyle: { fontFamily: css("--font") },
@@ -525,6 +532,7 @@
       <div class="crumb"><a href="#/c/${cat.id}">${esc(cat.name)}</a> /</div>
       <h1>${esc(ind.name)}</h1>
       <p class="lead">${esc(ind.desc)}</p>
+      ${ind.ref ? `<p class="ref"><b>參考價值：</b>${esc(ind.ref)}</p>` : ""}
       ${ind.status.ok === false ? `<div class="warn">最近一次更新失敗，目前顯示的是上次成功取得的資料。（${esc(ind.status.error || "")}）</div>` : ""}
       <div class="stats">
         <div class="card"><div class="stat-label">最新季 ${info.last ? plabel(info.last[0]) : ""}</div>
@@ -532,7 +540,7 @@
           <div class="stat-sub">${ind.head === "yoy" ? "年增率" : esc(ind.unit)}</div></div>
         ${ind.m ? `<div class="card"><div class="stat-label">最新月 ${plabel(ind.m[ind.m.length - 1][0])}</div>
           <div class="stat-value">${withUnit(ind.m[ind.m.length - 1][1], ind.unit)}</div>
-          <div class="stat-sub">${ind.head === "yoy" ? "年增率 " + signed(ind.m[ind.m.length - 1][2]) + "%" : ""}</div></div>` : ""}
+          <div class="stat-sub">${ind.head === "yoy" ? "年增率 " + toned(ind.m[ind.m.length - 1][2], signed(ind.m[ind.m.length - 1][2]) + "%") : ""}</div></div>` : ""}
         <div class="card"><div class="stat-label">與上季相比</div>
           <div class="stat-value" style="font-size:16px">${deltaText(ind, info.value, info.prevValue, "上季") || "–"}</div></div>
         <div class="card"><div class="stat-label">歷史分位（季）</div>
@@ -558,8 +566,8 @@
           <thead><tr><th>期間</th><th>數值（${esc(ind.unit)}）</th>${ind.head === "yoy" ? "<th>年增率</th>" : "<th>變動</th>"}</tr></thead>
           <tbody>${allRows.slice(-24).reverse().map((r, i, arr) => {
             const prev = arr[i + 1];
-            const third = ind.head === "yoy" ? (r[2] == null ? "–" : signed(r[2]) + "%")
-              : prev ? signed(r[1] - prev[1], digitsFor(r[1]) || 2) : "–";
+            const third = ind.head === "yoy" ? (r[2] == null ? "–" : toned(r[2], signed(r[2]) + "%"))
+              : prev ? toned(r[1] - prev[1], signed(r[1] - prev[1], digitsFor(r[1]) || 2)) : "–";
             return `<tr><td>${plabel(r[0])}</td><td>${num(r[1])}</td><td>${third}</td></tr>`;
           }).join("")}</tbody>
         </table></div>
@@ -620,7 +628,7 @@
       return { c, rows };
     }).filter((g) => g.rows.length);
 
-    const cell = (ind, v) => (v == null ? "–" : ind.head === "yoy" ? signed(v) + "%" : num(v) + (ind.unit === "%" ? "%" : ""));
+    const cell = (ind, v) => (v == null ? "–" : ind.head === "yoy" ? toned(v, signed(v) + "%") : num(v) + (ind.unit === "%" ? "%" : ""));
     app.innerHTML = `
       <h1>季度快照</h1>
       <p class="lead">選擇一個季度，檢視當季所有指標。年增率型指標顯示年增率，其餘顯示季平均或季末值。歷史分位以 2000 年至該季為比較基準（不使用之後的資料）。</p>
@@ -648,7 +656,7 @@
     const failed = Object.entries(S.data.indicators).filter(([, i]) => i.status.ok === false);
     $("#footer").innerHTML = `
       ${failed.length ? `<div class="warn" style="margin-bottom:10px">以下指標最近一次更新失敗，顯示的是上次資料：${failed.map(([id, i]) => `<a href="#/i/${id}">${esc(i.name)}</a>`).join("、")}</div>` : ""}
-      <p>資料更新：${gen.toLocaleString("zh-TW", { hour12: false })}（每月自動更新）</p>
+      <p>資料更新：${gen.toLocaleString("zh-TW", { hour12: false })}（每月 10 日、28 日自動更新）</p>
       <p>資料來源：行政院主計總處總體統計資料庫、國家發展委員會、中央銀行、臺灣證券交易所。景氣收縮期依國發會公布之景氣循環峰谷日期${(() => {
         const c = S.data.cycles[S.data.cycles.length - 1];
         return c && !c.trough2 ? `；${esc(c.n)}高峰為 ${plabel(c.peak)}，谷底尚未認定` : "";

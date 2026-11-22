@@ -11,11 +11,11 @@
   --border: rgba(11, 11, 11, 0.10);
   --series-1: #2a78d6;
   --series-2: #eb6834;
-  --pos: #2a78d6;
-  --neg: #e34948;
+  --rise: #e34948;       /* 上漲：紅（台股慣例） */
+  --fall: #008300;       /* 下跌：綠 */
+  --rise-text: #c4302b;
+  --fall-text: #007a1f;
   --recession: rgba(137, 135, 129, 0.14);
-  --up-text: #006300;
-  --down-text: #b42f2f;
   --light-red: #d03b3b;
   --light-yellowred: #ec835a;
   --light-green: #0ca30c;
@@ -39,11 +39,11 @@
     --border: rgba(255, 255, 255, 0.10);
     --series-1: #3987e5;
     --series-2: #d95926;
-    --pos: #3987e5;
-    --neg: #e66767;
+    --rise: #e66767;
+    --fall: #0ca30c;
+    --rise-text: #e66767;
+    --fall-text: #0ca30c;
     --recession: rgba(195, 194, 183, 0.10);
-    --up-text: #0ca30c;
-    --down-text: #e66767;
     --accent: #3987e5;
     --light-blue: #3987e5;
   }
@@ -61,11 +61,11 @@
   --border: rgba(255, 255, 255, 0.10);
   --series-1: #3987e5;
   --series-2: #d95926;
-  --pos: #3987e5;
-  --neg: #e66767;
+  --rise: #e66767;
+  --fall: #0ca30c;
+  --rise-text: #e66767;
+  --fall-text: #0ca30c;
   --recession: rgba(195, 194, 183, 0.10);
-  --up-text: #0ca30c;
-  --down-text: #e66767;
   --accent: #3987e5;
   --light-blue: #3987e5;
 }
@@ -145,9 +145,13 @@ a.card:hover { text-decoration: none; border-color: var(--accent); }
 .tile-value { font-size: 26px; font-weight: 650; margin: 2px 0 0; line-height: 1.2; }
 .tile-value small { font-size: 13px; font-weight: 500; color: var(--text-2); margin-left: 4px; }
 .tile-meta { font-size: 12.5px; color: var(--text-2); display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2px; }
-.delta-up { color: var(--up-text); }
-.delta-down { color: var(--down-text); }
-.delta-flat { color: var(--text-2); }
+.up { color: var(--rise-text); }
+.down { color: var(--fall-text); }
+.tile-info { font-size: 12.5px; line-height: 1.6; color: var(--text-2); border-top: 1px solid var(--grid); margin-top: 10px; padding-top: 8px; }
+.tile-info p { margin: 0 0 4px; }
+.tile-info b { color: var(--text); font-weight: 600; margin-right: 4px; }
+.ref { color: var(--text-2); margin: -12px 0 20px; max-width: 72ch; }
+.ref b { color: var(--text); }
 .spark { height: 56px; margin-top: 8px; }
 .mini { height: 150px; margin-top: 8px; }
 

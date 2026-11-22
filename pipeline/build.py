@@ -14,7 +14,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .indicators import CATEGORIES, COMPARISONS, INDICATORS, OVERVIEW
+from .indicators import CATEGORIES, COMPARISONS, INDICATORS, OVERVIEW, REFERENCE
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "raw"
@@ -107,6 +107,7 @@ def main() -> None:
             "agg": ind["agg"],
             "head": ind["head"],
             "desc": ind["desc"],
+            "ref": REFERENCE.get(ind["id"], ""),
             "source": SOURCE_LABELS[ind["src"][0]],
             "freq": "Q" if native_q else "M",
             "m": with_yoy(monthly, ind["head"]) if monthly else None,
