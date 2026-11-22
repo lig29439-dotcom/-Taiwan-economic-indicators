@@ -25,12 +25,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update:
+  # 抓資料、產生網站並上傳；部署拆成另一個 job，避免同一 job 內查不到剛上傳的檔案
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 90
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -64,5 +62,12 @@ jobs:
         with:
           path: site
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4
