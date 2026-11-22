@@ -131,7 +131,8 @@
         type: "time",
         axisLine: { lineStyle: { color: css("--axis") } },
         axisTick: { show: false },
-        axisLabel: { color: css("--muted"), fontSize: 11, hideOverlap: true },
+        axisLabel: { color: css("--muted"), fontSize: 11, hideOverlap: true, formatter: "{yyyy}" },
+        minInterval: 365 * 864e5,
         splitLine: { show: false },
       },
       yAxis: {
