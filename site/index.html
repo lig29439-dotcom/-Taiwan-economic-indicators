@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>台灣經濟指標</title>
+<meta name="description" content="台灣每季經濟指標儀表板：景氣、產業、半導體、房地產、物價、金融、勞動、股市。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232a78d6'/%3E%3Cpath d='M6 22l6-7 5 4 9-10' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.1/echarts.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#/">台灣經濟指標</a>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切換深淺色模式">自動</button>
+  </div>
+  <nav id="nav" class="nav" aria-label="分類"></nav>
+</header>
+<main id="app" class="container" aria-live="polite">
+  <p class="loading">載入資料中…</p>
+</main>
+<footer class="footer container" id="footer"></footer>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# 網站資料由 pipeline/build.py 在部署時產生
+site/data/
+__pycache__/
+*.pyc
+.DS_Store
