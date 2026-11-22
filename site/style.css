@@ -85,8 +85,12 @@ a:hover { text-decoration: underline; }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
 
 /* ---------- top bar & nav */
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 11; background: var(--page);
+}
 .topbar {
-  position: sticky; top: 0; z-index: 10;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
   background: var(--page);
   border-bottom: 1px solid var(--border);
 }

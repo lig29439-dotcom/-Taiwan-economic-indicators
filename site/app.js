@@ -1,6 +1,8 @@
 /* 台灣經濟指標網站
  * 資料：data/data.json（由 pipeline/build.py 產生）
- * 路由：#/ 總覽、#/c/<分類>、#/i/<指標>、#/q/<季度>
+ * 路由（只用英數與連字號，Claude 成品區也能使用）：
+ *   #overview 總覽、#c-<分類>、#i-<指標，底線改連字號>、#q 或 #q-<季度>
+ *   舊格式 #/c/..、#/i/..、#/q/.. 仍可開啟
  */
 (function () {
   "use strict";
@@ -99,6 +101,17 @@
     const phase = x >= 100 ? (dy >= 0 ? "擴張" : "趨緩") : dy < 0 ? "衰退" : "復甦";
     return { period: last[0], x, dy, phase };
   }
+
+  // ------------------------------------------------------------------ 連結
+  const link = {
+    home: () => "#overview",
+    cat: (c) => `#c-${c}`,
+    ind: (id) => `#i-${id.replace(/_/g, "-")}`,
+    quarter: (q) => (q ? `#q-${q}` : "#q"),
+  };
+  // 在 Claude 成品區時：主題由 Claude 介面控制、無法下載檔案，改連到網站版
+  const IS_ARTIFACT = !!window.TW_ECON_ARTIFACT;
+  const SITE_URL = "https://lig29439-dotcom.github.io/-Taiwan-economic-indicators/";
 
   // ------------------------------------------------------------------ 圖表
   function disposeCharts() {
@@ -264,7 +277,7 @@
     const info = latestInfo(id);
     const { ind, last } = info;
     const label = ind.head === "yoy" ? `${ind.name}（年增率）` : ind.name;
-    return `<a class="card" href="#/i/${id}">
+    return `<a class="card" href="${link.ind(id)}">
       <div class="tile-name"><span>${esc(label)}</span><span class="period">${last ? plabel(last[0]) : ""}</span></div>
       <div class="tile-value">${headText(ind, info.value)}</div>
       <div class="tile-meta"><span>${deltaText(ind, info.value, info.prevValue, "上季")}</span>${monthLine(info)}</div>
@@ -291,9 +304,9 @@
   }
 
   function setNav(active) {
-    const items = [["overview", "總覽", "#/"]]
-      .concat(S.data.categories.map((c) => [c.id, c.name, `#/c/${c.id}`]))
-      .concat([["quarter", "季度快照", "#/q"]]);
+    const items = [["overview", "總覽", link.home()]]
+      .concat(S.data.categories.map((c) => [c.id, c.name, link.cat(c.id)]))
+      .concat([["quarter", "季度快照", link.quarter()]]);
     $("#nav").innerHTML = items
       .map(([id, name, href]) => `<a href="${href}" class="${id === active ? "active" : ""}">${name}</a>`)
       .join("");
@@ -338,12 +351,12 @@
       </div>
       <div class="section grid-2">
         <div class="card">
-          <div class="section-head"><h2>景氣循環時鐘</h2><a href="#/i/leading_dt" class="note">領先指標 →</a></div>
+          <div class="section-head"><h2>景氣循環時鐘</h2><a href="${link.ind("leading_dt")}" class="note">領先指標 →</a></div>
           <p class="note" style="margin:0">橫軸：領先指標（不含趨勢）高於或低於長期趨勢 100；縱軸：近 3 個月變動。軌跡為近 24 個月。</p>
           <div class="chart-clock" id="clock"></div>
         </div>
         <div class="card">
-          <div class="section-head"><h2>景氣燈號分數</h2><a href="#/i/signal_score" class="note">詳細 →</a></div>
+          <div class="section-head"><h2>景氣燈號分數</h2><a href="${link.ind("signal_score")}" class="note">詳細 →</a></div>
           <p class="note" style="margin:0">近 10 年每月分數；底色為五種燈號的分數區間。</p>
           <div class="chart-clock" id="signal"></div>
         </div>
@@ -508,7 +521,7 @@
         label: { show: true, position: "right", color: css("--text-2"), fontSize: 11, formatter: (p) => signed(p.value, 1) + "%" },
       }],
     });
-    chart.on("click", (p) => { location.hash = `#/i/${items[p.dataIndex].id}`; });
+    chart.on("click", (p) => { location.hash = link.ind(items[p.dataIndex].id); });
   }
 
   // ------------------------------------------------------------------ 指標詳細頁
@@ -529,7 +542,7 @@
     const fetched = ind.status.fetched ? new Date(ind.status.fetched).toLocaleDateString("zh-TW") : "–";
 
     app.innerHTML = `
-      <div class="crumb"><a href="#/c/${cat.id}">${esc(cat.name)}</a> /</div>
+      <div class="crumb"><a href="${link.cat(cat.id)}">${esc(cat.name)}</a> /</div>
       <h1>${esc(ind.name)}</h1>
       <p class="lead">${esc(ind.desc)}</p>
       ${ind.ref ? `<p class="ref"><b>參考價值：</b>${esc(ind.ref)}</p>` : ""}
@@ -561,7 +574,9 @@
       ${ind.head === "yoy" ? `<div class="card section" style="margin-top:12px"><div class="section-head"><h2>原始數值</h2><span class="note">${esc(ind.unit)}</span></div>
         <div class="chart" id="c-level"></div></div>` : ""}
       <div class="card section">
-        <div class="section-head"><h2>資料表</h2><button class="btn" id="dl">下載 CSV（${st.freq === "Q" ? "季" : "月"}）</button></div>
+        <div class="section-head"><h2>資料表</h2>${IS_ARTIFACT
+          ? `<a class="note" href="${SITE_URL}${link.ind(id)}" target="_blank" rel="noopener">到網站版下載 CSV ↗</a>`
+          : `<button class="btn" id="dl">下載 CSV（${st.freq === "Q" ? "季" : "月"}）</button>`}</div>
         <div class="table-wrap"><table>
           <thead><tr><th>期間</th><th>數值（${esc(ind.unit)}）</th>${ind.head === "yoy" ? "<th>年增率</th>" : "<th>變動</th>"}</tr></thead>
           <tbody>${allRows.slice(-24).reverse().map((r, i, arr) => {
@@ -586,7 +601,7 @@
       st[b.parentElement.dataset.ctl] = b.dataset.v;
       render();
     }));
-    $("#dl").addEventListener("click", () => {
+    if (!IS_ARTIFACT) $("#dl").addEventListener("click", () => {
       const head = ind.head === "yoy" ? "期間,數值,年增率(%)" : "期間,數值";
       const lines = allRows.map((r) => (ind.head === "yoy" ? [r[0], r[1], r[2] ?? ""] : [r[0], r[1]]).join(","));
       const blob = new Blob(["﻿" + head + "\n" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
@@ -639,24 +654,26 @@
       <div class="card"><div class="table-wrap"><table>
         <thead><tr><th>指標</th><th>${plabel(q)}</th><th>上季 ${plabel(prevQ)}</th><th>去年同季 ${plabel(lastYear)}</th><th>歷史分位</th><th>單位</th></tr></thead>
         <tbody>${groups.map((g) => `<tr class="group"><td colspan="6">${esc(g.c.name)}</td></tr>` + g.rows.map((r) => `
-          <tr><td><a href="#/i/${r.id}">${esc(r.ind.name)}</a></td><td><b>${cell(r.ind, r.cur)}</b></td><td>${cell(r.ind, r.prev)}</td>
+          <tr><td><a href="${link.ind(r.id)}">${esc(r.ind.name)}</a></td><td><b>${cell(r.ind, r.cur)}</b></td><td>${cell(r.ind, r.prev)}</td>
           <td>${cell(r.ind, r.ly)}</td><td>${r.pct == null ? "–" : r.pct + "%"}</td>
           <td class="note">${r.ind.head === "yoy" ? "年增率" : esc(r.ind.unit)}</td></tr>`).join("")).join("")}
         </tbody></table></div></div>`;
-    $("#qsel").addEventListener("change", (e) => { location.hash = `#/q/${e.target.value}`; });
+    $("#qsel").addEventListener("change", (e) => { location.hash = link.quarter(e.target.value); });
   }
 
   function renderNotFound(app) {
     setNav("");
-    app.innerHTML = `<h1>找不到頁面</h1><p><a href="#/">回到總覽</a></p>`;
+    app.innerHTML = `<h1>找不到頁面</h1><p><a href="${link.home()}">回到總覽</a></p>`;
   }
 
   function renderFooter() {
     const gen = new Date(S.data.generated);
     const failed = Object.entries(S.data.indicators).filter(([, i]) => i.status.ok === false);
     $("#footer").innerHTML = `
-      ${failed.length ? `<div class="warn" style="margin-bottom:10px">以下指標最近一次更新失敗，顯示的是上次資料：${failed.map(([id, i]) => `<a href="#/i/${id}">${esc(i.name)}</a>`).join("、")}</div>` : ""}
-      <p>資料更新：${gen.toLocaleString("zh-TW", { hour12: false })}（每月 10 日、28 日自動更新）</p>
+      ${failed.length ? `<div class="warn" style="margin-bottom:10px">以下指標最近一次更新失敗，顯示的是上次資料：${failed.map(([id, i]) => `<a href="${link.ind(id)}">${esc(i.name)}</a>`).join("、")}</div>` : ""}
+      <p>資料更新：${gen.toLocaleString("zh-TW", { hour12: false })}（${IS_ARTIFACT
+        ? `成品區為發布當下的快照；每月 10 日、28 日自動更新的網站版：<a href="${SITE_URL}" target="_blank" rel="noopener">${SITE_URL}</a>`
+        : "每月 10 日、28 日自動更新"}）</p>
       <p>資料來源：行政院主計總處總體統計資料庫、國家發展委員會、中央銀行、臺灣證券交易所。景氣收縮期依國發會公布之景氣循環峰谷日期${(() => {
         const c = S.data.cycles[S.data.cycles.length - 1];
         return c && !c.trough2 ? `；${esc(c.n)}高峰為 ${plabel(c.peak)}，谷底尚未認定` : "";
@@ -667,14 +684,27 @@
   function render() {
     disposeCharts();
     const app = $("#app");
-    const parts = location.hash.replace(/^#\/?/, "").split("/");
+    const [page, arg] = parseHash(location.hash);
     const scrollTop = window.scrollY;
-    if (parts[0] === "c") renderCategory(app, parts[1]);
-    else if (parts[0] === "i") renderDetail(app, parts[1]);
-    else if (parts[0] === "q") renderQuarter(app, parts[1]);
-    else if (!parts[0]) renderOverview(app);
+    if (page === "c") renderCategory(app, arg);
+    else if (page === "i") renderDetail(app, arg);
+    else if (page === "q") renderQuarter(app, arg);
+    else if (page === "overview") renderOverview(app);
     else renderNotFound(app);
     return scrollTop;
+  }
+
+  function parseHash(hash) {
+    const h = hash.replace(/^#/, "");
+    if (!h || h === "/" || h === "overview") return ["overview"];
+    if (h.startsWith("/")) {  // 舊格式 #/c/x、#/i/x、#/q/x
+      const [p, a] = h.slice(1).split("/");
+      return [p, a];
+    }
+    if (h === "q") return ["q"];
+    const m = h.match(/^([ciq])-(.+)$/);
+    if (!m) return ["notfound"];
+    return [m[1], m[1] === "i" ? m[2].replace(/-/g, "_") : m[2]];
   }
 
   let lastHash = null;
@@ -694,6 +724,16 @@
     $("#theme-toggle").textContent = THEMES.find((x) => x[0] === t)[1];
   }
   function initTheme() {
+    if (IS_ARTIFACT) {
+      $("#theme-toggle").hidden = true;
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+        if (S.data) { const top = render(); window.scrollTo(0, top); }
+      });
+      // Claude 介面切換主題時會改 data-theme，圖表需要重畫
+      new MutationObserver(() => { if (S.data) { const top = render(); window.scrollTo(0, top); } })
+        .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      return;
+    }
     applyTheme(getTheme());
     $("#theme-toggle").addEventListener("click", () => {
       const cur = getTheme();
