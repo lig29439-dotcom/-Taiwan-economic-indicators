@@ -1,407 +1,407 @@
 {
  "bond10y": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 371,
   "ok": true
  },
  "coincident_dt": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "construction_cost": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "construction_loan": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 321,
   "ok": true
  },
  "core_cpi": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "cpi": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "employment": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "eps": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "exports": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "foreign_net": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 319,
   "ok": true
  },
  "gdp_c_consumption": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-Q2",
-  "n": 106,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-Q3",
+  "n": 107,
   "ok": true
  },
  "gdp_c_domestic": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-Q2",
-  "n": 106,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-Q3",
+  "n": 107,
   "ok": true
  },
  "gdp_c_external": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-Q2",
-  "n": 106,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-Q3",
+  "n": 107,
   "ok": true
  },
  "gdp_c_investment": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-Q2",
-  "n": 106,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-Q3",
+  "n": 107,
   "ok": true
  },
  "gdp_growth": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-Q2",
-  "n": 106,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-Q3",
+  "n": 107,
   "ok": true
  },
  "import_price": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "imports": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "ip_chem": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "ip_consumer": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "ip_ict": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "ip_metal": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "ip_mfg": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "ip_total": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "leading_dt": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "m1b": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 321,
   "ok": true
  },
  "m2": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 321,
   "ok": true
  },
  "mortgage": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 321,
   "ok": true
  },
  "nmi": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 147,
   "ok": true
  },
  "occupancy_res": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 309,
   "ok": true
  },
  "orders_asean": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_chem": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_china": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_electronic": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_europe": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_ict": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_japan": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_machine": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_metal": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_optical": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_plastic": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_total": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "orders_us": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "otc": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "overnight": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 321,
   "ok": true
  },
  "pe": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "permit_res": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 309,
   "ok": true
  },
  "pmi": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 172,
   "ok": true
  },
  "ppi": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 70,
   "ok": true
  },
  "ppi_semi": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 70,
   "ok": true
  },
  "restaurant": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "retail": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "semi_index": {
   "error": null,
   "failed": "2026-11-22T03:12:37+00:00",
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 213,
   "ok": true
  },
  "signal_score": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "taiex": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 322,
   "ok": true
  },
  "trust_net": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-10",
   "n": 319,
   "ok": true
  },
  "unemployment": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
-  "last": "2026-09",
-  "n": 321,
+  "fetched": "2026-11-28T10:32:41+00:00",
+  "last": "2026-10",
+  "n": 322,
   "ok": true
  },
  "usdtwd": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 321,
   "ok": true
  },
  "wage": {
   "error": null,
-  "fetched": "2026-11-22T03:22:21+00:00",
+  "fetched": "2026-11-28T10:32:41+00:00",
   "last": "2026-09",
   "n": 321,
   "ok": true
